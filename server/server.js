@@ -25,10 +25,11 @@ socket.emit('newMessage', generateMessage('Admin', 'Welcome to the Chat App, enj
 socket.broadcast.emit('newMessage', generateMessage('Admin', 'new user joined!')); 
 
 // listen for the create message event from client
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log(message);
     io.emit('newMessage', generateMessage(message.from, message.text));
-
+    callback('this is from server!');
+    
   });
 
 
