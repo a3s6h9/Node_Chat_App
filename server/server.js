@@ -3,6 +3,8 @@ const path = require('path');
 const http = require('http');
 const socketIO = require('socket.io');
 
+const {generateMessage} = require('./utils/message');
+
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
 
@@ -17,27 +19,15 @@ io.on('connection', (socket) => {
   console.log('New user connected');
 
 // emit event to send the welcome message from admin.
-socket.emit('newMessage', {
-  from: 'Admin',
-  text: 'Welcome to the Chat App, enjoy youreself!',
-  createdAt: new Date().getTime()
-});
+socket.emit('newMessage', generateMessage('Admin', 'Welcome to the Chat App, enjoy youreself!'));
 
 // emit the brodacst event to tell everyone new user is added, but that user.
-socket.broadcast.emit('newMessage', {
-  from: 'Admin',
-  text: 'we got new user in that chat room!',
-  createdAt: new Date().getTime()
-}); 
+socket.broadcast.emit('newMessage', generateMessage('Admin', 'new user joined!')); 
 
 // listen for the create message event from client
   socket.on('createMessage', (message) => {
     console.log(message);
-    io.emit('newMessage', {
-      from: message.from,
-      text: message.text,
-      createdAt: new Date().getTime() // get the timestamp of when the event gets fired.
-    });
+    io.emit('newMessage', generateMessage(message.from, message.text));
 
   });
 
