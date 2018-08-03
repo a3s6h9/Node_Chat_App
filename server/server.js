@@ -16,6 +16,20 @@ io.on('connection', (socket) => {
 // this event is gon fire up when the client is connected.
   console.log('New user connected');
 
+// emit event to send the welcome message from admin.
+socket.emit('newMessage', {
+  from: 'Admin',
+  text: 'Welcome to the Chat App, enjoy youreself!',
+  createdAt: new Date().getTime()
+});
+
+// emit the brodacst event to tell everyone new user is added, but that user.
+socket.broadcast.emit('newMessage', {
+  from: 'Admin',
+  text: 'we got new user in that chat room!',
+  createdAt: new Date().getTime()
+}); 
+
 // listen for the create message event from client
   socket.on('createMessage', (message) => {
     console.log(message);
