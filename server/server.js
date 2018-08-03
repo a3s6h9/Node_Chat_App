@@ -16,6 +16,21 @@ io.on('connection', (socket) => {
 // this event is gon fire up when the client is connected.
   console.log('New user connected');
 
+
+// emit message from server to client
+  socket.emit('newMessage', {
+    from: 'HunchoQuavo',
+    text: 'yo yall wannna hangout..?',
+    createdAt: 123
+  });
+
+
+// listen for the create message event from client
+  socket.on('createMessage', function(message) {
+    console.log('new Messsage: ', message);
+  });
+
+
 // this event is gon fire up when the client is disconnected.
   socket.on('disconnect', () => {
     console.log('client disconnected!');
