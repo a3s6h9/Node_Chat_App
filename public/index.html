@@ -4,9 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>CHAT APP</title>
+  <title>NODE | CHAT APP</title>
+  <link rel="icon" type="image/ico" href="images/title-icon.png" />
 </head>
 <body>
-  <p>Welcome to my APP</p>
+  <p>Welcome to my Chat App</p>
+  
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+
+      let socket = io();
+
+// this event is gon fire up when the server is up.
+      socket.on('connect', () => {
+        console.log('server is connected.');
+      });
+
+// this event is gon fire up when the server is down.
+      socket.on('disconnect', () => {
+        console.log('server disconnected!');
+      });
+
+  </script>
 </body>
 </html>
