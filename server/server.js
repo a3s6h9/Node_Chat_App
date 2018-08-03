@@ -16,18 +16,15 @@ io.on('connection', (socket) => {
 // this event is gon fire up when the client is connected.
   console.log('New user connected');
 
-
-// emit message from server to client
-  socket.emit('newMessage', {
-    from: 'HunchoQuavo',
-    text: 'yo yall wannna hangout..?',
-    createdAt: 123
-  });
-
-
 // listen for the create message event from client
-  socket.on('createMessage', function(message) {
-    console.log('new Messsage: ', message);
+  socket.on('createMessage', (message) => {
+    console.log(message);
+    io.emit('newMessage', {
+      from: message.from,
+      text: message.text,
+      createdAt: new Date().getTime() // get the timestamp of when the event gets fired.
+    });
+
   });
 
 
@@ -35,6 +32,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('client disconnected!');
   });
+
 });
 
 server.listen(port, () => {
