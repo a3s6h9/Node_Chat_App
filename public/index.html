@@ -7,18 +7,18 @@
   <title>NODE | CHAT APP</title>
   <link rel="icon" type="image/ico" href="assets/images/title-icon.png"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
   <h3>Welcome to my Chat App</h3>
   
   <div class="conatiner">
     <ul class="m-box"></ul>
-    <br>
-    <br>
     <form id="form">
       <input type="text" name="message" placeholder="type your message" id="message">
       <button id="btn">Send</button>
     </form>
+    <button id="loc-btn">Send Location</button>
   </div>
 
   <script src="/socket.io/socket.io.js"></script>

@@ -23,15 +23,15 @@ let socket = io();
 
     });
 
-/* // acknowledgement
-    socket.emit('createMessage', {
-      from: 'Wild Frank',
-      text: 'Hi'
-    }, function(data){
-      console.log('Got It, ', data);
+// lisetn for the new location event
+    socket.on('newLocationMessage', function(message) {
+      let ul = document.querySelector('.m-box');
+      let li = document.createElement('li');
+      let a = `<a href="${message.url}" target="_blank">My Current Location</a>`;
+      li.innerHTML = `${message.from}: `;
+      li.innerHTML += a;
+      ul.appendChild(li);
     });
- */
-
 
 // real client side...
 document.getElementById('form').addEventListener('submit', function(e) {
@@ -43,5 +43,29 @@ document.getElementById('form').addEventListener('submit', function(e) {
 
   });
 
+// clear input field after sending the message  
+  document.getElementById('message').value = '';
   e.preventDefault();
+});
+
+// get the location of the user on send location button click
+let locationBtn = document.getElementById('loc-btn');
+locationBtn.addEventListener('click', function() {
+  if(!navigator.geolocation) {
+    return alert('gelocation is not supported in your browser.');
+  }
+
+  navigator.geolocation.getCurrentPosition( function(position) {
+    // success
+    console.log(position);
+    socket.emit('createLocationMessage', {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude
+    });
+  }, function(err) {
+    // error
+    console.log(err)
+    alert('unable to fetch the location!');
+  });
+
 });
