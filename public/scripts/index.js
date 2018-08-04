@@ -13,22 +13,24 @@ let socket = io();
 
 // listen to the new Message event
     socket.on('newMessage', function(message) {
+      let formattedTime = moment(message.createdAt).format('h:mm a');
       console.log('new Message: ', message);
 
       // create li and append it to the ul
       let ul = document.querySelector('.m-box');
       let li = document.createElement('li');
-      li.innerHTML = (`${message.from}: ${message.text}`);
+      li.innerHTML = (`${message.from} ${formattedTime}: ${message.text}`);
       ul.appendChild(li);
 
     });
 
 // lisetn for the new location event
     socket.on('newLocationMessage', function(message) {
+      let formattedTime = moment(message.createdAt).format('h:mm a');
       let ul = document.querySelector('.m-box');
       let li = document.createElement('li');
       let a = `<a href="${message.url}" target="_blank">My Current Location</a>`;
-      li.innerHTML = `${message.from}: `;
+      li.innerHTML = `${message.from} ${formattedTime}: `;
       li.innerHTML += a;
       ul.appendChild(li);
     });
