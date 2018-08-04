@@ -19,7 +19,7 @@ io.on('connection', (socket) => {
   console.log('New user connected');
 
 // emit event to send the welcome message from admin.
-socket.emit('newMessage', generateMessage('Admin', 'Welcome to the Chat App, enjoy youreself!'));
+socket.emit('newMessage', generateMessage('Admin', 'Welcome to the Chat App, make yourself home!'));
 
 // emit the brodacst event to tell everyone new user is added, but that user.
 socket.broadcast.emit('newMessage', generateMessage('Admin', 'new user joined!')); 
