@@ -55,8 +55,11 @@ locationBtn.addEventListener('click', function() {
     return alert('gelocation is not supported in your browser.');
   }
 
+  changeState(locationBtn, 'Sending Location...', '0.8');
+
   navigator.geolocation.getCurrentPosition( function(position) {
     // success
+    changeState(locationBtn, 'Send Location', '1', 'disabled');
     console.log(position);
     socket.emit('createLocationMessage', {
       latitude: position.coords.latitude,
@@ -65,6 +68,7 @@ locationBtn.addEventListener('click', function() {
   }, function(err) {
     // error
     console.log(err)
+    changeState(locationBtn, 'Send Location', '1', 'disabled');
     alert('unable to fetch the location!');
   });
 
