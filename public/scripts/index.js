@@ -1,5 +1,24 @@
 let socket = io();
 
+// automatic scrolling algorithm
+function scrollBottom() {
+  let messages      = $('.m-box');
+  let newMessage    = messages.children('li:last-child');
+
+  // height properties
+  let clientHeight  = messages.prop('clientHeight');
+  let scrollHeight  = messages.prop('scrollHeight');
+  let scrollTop     = messages.prop('scrollTop');
+  let newMsgHeight  = newMessage.innerHeight();
+  let lastMsgHeight = newMessage.prev().innerHeight();
+
+  // eqation
+  if (clientHeight + scrollTop + newMsgHeight + lastMsgHeight >= scrollHeight) {
+    messages.scrollTop(scrollHeight);
+  }
+
+}
+
 // this event is gon fire up when the server is up.
     socket.on('connect', function() {
       console.log('server is connected.');
@@ -25,6 +44,7 @@ let socket = io();
       });
 
       $('.m-box').append(html);
+      scrollBottom();
 
     });
 
@@ -39,6 +59,7 @@ let socket = io();
         createdAt: formattedTime
       });
       $('.m-box').append(html);
+      scrollBottom();
 
     });
 
@@ -74,6 +95,7 @@ locationBtn.addEventListener('click', function() {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude
     });
+
   }, function(err) {
     // error
     console.log(err)
