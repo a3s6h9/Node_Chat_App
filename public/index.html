@@ -27,8 +27,37 @@
   </div>
   </div>
 
+<!-- messsage title, body and timestamp template -->
+    <script id="message-template" type="text/template">
+      <li class="message">
+        <div class="message__title">
+          <h4>{{from}}</h4>
+          <span>{{createdAt}}</span>
+        </div>
+        <div class="message__body">
+          <p>{{text}}</p>
+        </div>
+      </li>
+    </script>
+
+<!-- Location message template -->
+    <script id="location-message-template" type="text/template">
+      <li class="message">
+        <div class="message__title">
+          <h4>{{from}}</h4>
+          <span>{{createdAt}}</span>
+        </div>
+        <div class="message__body">
+          <p><a href="{{url}}" target="_blank">i'm here right now!</a></p>
+        </div>
+      </li>
+    </script>
+
+
   <script src="/socket.io/socket.io.js"></script>
-  <script src="scripts/moment.js"></script>
+  <script src="libs/jquery-3.3.1.min.js"></script>
+  <script src="libs/moment.js"></script>
+  <script src="libs/mustache.min.js"></script>
   <script src="scripts/state.js"></script>
   <script src="/scripts/index.js"></script>
 </body>

@@ -16,23 +16,30 @@ let socket = io();
       let formattedTime = moment(message.createdAt).format('h:mm a');
       console.log('new Message: ', message);
 
-      // create li and append it to the ul
-      let ul = document.querySelector('.m-box');
-      let li = document.createElement('li');
-      li.innerHTML = (`${message.from} ${formattedTime}: ${message.text}`);
-      ul.appendChild(li);
+// need to use the jQuery cuz of mustache
+      let template = $('#message-template').html();
+      let html = Mustache.render(template, {
+        text: message.text,
+        from: message.from,
+        createdAt: formattedTime
+      });
+
+      $('.m-box').append(html);
 
     });
 
 // lisetn for the new location event
     socket.on('newLocationMessage', function(message) {
       let formattedTime = moment(message.createdAt).format('h:mm a');
-      let ul = document.querySelector('.m-box');
-      let li = document.createElement('li');
-      let a = `<a href="${message.url}" target="_blank">My Current Location</a>`;
-      li.innerHTML = `${message.from} ${formattedTime}: `;
-      li.innerHTML += a;
-      ul.appendChild(li);
+
+      let template = $('#location-message-template').html();
+      let html = Mustache.render(template, {
+        url: message.url,
+        from: message.from,
+        createdAt: formattedTime
+      });
+      $('.m-box').append(html);
+
     });
 
 // real client side...

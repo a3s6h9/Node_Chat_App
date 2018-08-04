@@ -34,7 +34,7 @@ socket.broadcast.emit('newMessage', generateMessage('Admin', 'new user joined!')
 
 // listen for the create loaction message evenr
   socket.on('createLocationMessage', (coords) => {
-    io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+    io.emit('newLocationMessage', generateLocationMessage('user', coords.latitude, coords.longitude));
   });
 
 
