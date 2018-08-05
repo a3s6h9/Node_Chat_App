@@ -22,11 +22,34 @@ function scrollBottom() {
 // this event is gon fire up when the server is up.
     socket.on('connect', function() {
       console.log('server is connected.');
+
+      // deparam the querystring
+      let params = jQuery.deparam(window.location.search);
+
+      socket.emit('join', params, function(err) {
+        if (err) {
+          alert(err)
+          // if error redirect users to the join page.
+          window.location.href = '/';
+        } else {
+          console.log(`No Error`)
+        }
+      })
     });
 
 // this event is gon fire up when the server is down.
     socket.on('disconnect', function() {
       console.log('server disconnected!');
+    });
+
+// listen for update users list event
+    socket.on('updateUsersList', function(users) {
+      let ol = $('<ol></ol>');
+      users.forEach( user => {
+        ol.append($('<li></li>').text(user));
+      });
+
+      $('#users').html(ol);
     });
 
 

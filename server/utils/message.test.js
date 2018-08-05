@@ -13,7 +13,7 @@ describe('generate message', () => {
   });
 });
 
-describe('it should create a location message', () => {
+describe('generate location message', () => {
   it('should generate a correct url object', () => {
     let loc = generateLocationMessage('ash', 1, 2)
       expect(loc.from).toBe('ash');
