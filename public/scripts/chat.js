@@ -23,8 +23,10 @@ function scrollBottom() {
     socket.on('connect', function() {
       console.log('server is connected.');
 
+      let roomName = window.location.search.toLowerCase();
+
       // deparam the querystring
-      let params = jQuery.deparam(window.location.search);
+      let params = jQuery.deparam(roomName);
 
       socket.emit('join', params, function(err) {
         if (err) {
