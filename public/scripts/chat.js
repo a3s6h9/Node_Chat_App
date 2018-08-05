@@ -90,7 +90,6 @@ function scrollBottom() {
 document.getElementById('form').addEventListener('submit', function(e) {
 
   socket.emit('createMessage', {
-    from: 'User',
     text: document.getElementById('message').value
   }, function() {
 
